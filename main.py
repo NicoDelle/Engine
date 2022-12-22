@@ -28,6 +28,7 @@ def main():
     FPS = 60
 
     #ENGINE PARAMETERS
+    scaling_factor = (float(input("What do you want the scaling facto for the spped to be? ")))
     n = int(input("how many particles do you need? "))
     partMap = dict()
     i = 0
@@ -49,7 +50,7 @@ def main():
                 print("Bad input: retry")
 
     engine = engine.SimpleInteraction(surface, partMap)
-    engine.scale_speed(3)
+    engine.scale_speed(scaling_factor)
     clock = pygame.time.Clock()
     
     run = True

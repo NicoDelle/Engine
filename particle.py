@@ -3,14 +3,17 @@ import pygame
 
 class Particle():
 
-    def __init__(self, surface, position: tuple, speed: tuple) -> None:
+    def __init__(self, surface, position: tuple, speed: tuple, acceleration=(0,0)) -> None:
         self.surface = surface
         self.position = position
         self.speed = speed
+        self.acceleration = acceleration
+
         self.color = (255, 255, 255)
         self.radius = 5.0
 
-    def move_linear(self):
+    def move(self):
+        self.speed = (self.speed[0] + self.acceleration[0], self.speed[1] + self.acceleration[1])
         self.position = (self.position[0] + self.speed[0], self.position[1] + self.speed[1])
     
     def draw(self):

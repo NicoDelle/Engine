@@ -53,4 +53,4 @@ class SimpleInteraction(Engine):
         for _, particle in self.particles.items():
             particle.draw()
         for _, particle in self.particles.items():
-            particle.move_linear()
+            particle.move()
