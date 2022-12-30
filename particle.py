@@ -4,10 +4,12 @@ import pygame
 class Particle():
 
     def __init__(self, surface, position: tuple, speed: tuple, acceleration=(0,0)) -> None:
+        import decimal
+
         self.surface = surface
-        self.position = position
-        self.speed = speed
-        self.acceleration = acceleration
+        self.position = (decimal.Decimal(position[0]), decimal.Decimal(position[1])) #m
+        self.speed = (decimal.Decimal(speed[0]), decimal.Decimal(speed[1])) #m/s
+        self.acceleration = (decimal.Decimal(acceleration[0]), decimal.Decimal(acceleration[1]))#m/s^2
 
         self.color = (255, 255, 255)
         self.radius = 5.0
@@ -24,8 +26,10 @@ class Electron(Particle):
 
     def __init__(self, surface, position: tuple, speed: tuple) -> None:
         super().__init__(surface, position, speed)
-        self.charge = -1
-        self.mass = 9.11
+        import decimal
+
+        self.charge = decimal.Decimal('-1.60e-19') #C
+        self.mass =  decimal.Decimal('9.11e-31') #Kg
         self.color = (0, 0, 255)
         self.radius = 3.0
 
@@ -33,8 +37,10 @@ class Proton(Particle):
 
     def __init__(self, surface, position: tuple, speed: tuple) -> None:
         super().__init__(surface, position, speed)
-        self.charge = 1
-        self.mass = 16000
+        import decimal
+
+        self.charge = decimal.Decimal('1.60e-19') #C
+        self.mass = decimal.Decimal('1.67e-27') #Kg
         self.color = (255, 0, 0)
         self.radius = 5.5
     

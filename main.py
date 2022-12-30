@@ -1,9 +1,8 @@
 #Third party
 import pygame
-print("ma che cazzo")
 
 #personal
-import drawings
+import functions.drawings as drawings
 
 #<------------------------------>
 #COLORS
@@ -16,7 +15,6 @@ size = (900, 600)
 
 #<------------------------------>
 
-print("wtf?")
 pygame.init()
 surface = drawings.setSurface(size, bgColor)
 
@@ -28,21 +26,21 @@ def main():
     FPS = 60
 
     #ENGINE PARAMETERS
-    scaling_factor = (float(input("What do you want the scaling facto for the spped to be? ")))
+    scaling_factor = (float(input("What do you want the scaling factor for the speed to be? ")))
     n = int(input("how many particles do you need? "))
     partMap = dict()
     i = 0
     while i< n :
         try:
             string = 'number {}: type 0 for proton, 1 for electron '.format(str(i + 1))
-            part = int(input(string))
+            particleType = int(input(string))
             xSpeed = float(input("what's its speed on the x axis? "))
             ySpeed = float(input("what's its speed on the y axis? "))
             xPosition = int(input("And what's its x coordinate? "))
             yPosition = int(input("Finally, what's its y coordinate? "))
 
-            if part == 1 or part == 0:
-                partMap[i] = [part, (xSpeed, ySpeed), (xPosition, yPosition)]
+            if particleType == 1 or particleType == 0:
+                partMap[i] = [particleType, (xSpeed, ySpeed), (xPosition, yPosition)]
                 i += 1
             else:
                 print("Bad input: retry")
@@ -50,7 +48,7 @@ def main():
                 print("Bad input: retry")
 
     engine = engine.SimpleInteraction(surface, partMap)
-    engine.scale_speed(scaling_factor)
+    scaler = engine.scale_speed(scaling_factor)
     clock = pygame.time.Clock()
     
     run = True
@@ -58,7 +56,7 @@ def main():
         
         surface.fill(BLACK)
 
-        engine.run()
+        engine.run(scaler)
 
         clock.tick(FPS)
         pygame.display.flip()
