@@ -21,11 +21,15 @@ class Particle():
     def draw(self):
         pygame.draw.circle(self.surface, self.color, self.position, self.radius, 0)
 
+    def __repr__(self) -> str:
+        return "mass: {} Kg\ncharge: {} C\nPosition: {}x, {}y\nSpeed: {}x, {}y".format(self.mass, self.charge, self.position[0], self.position[1], self.speed[0], self.position[1])
+        
+
 
 class Electron(Particle):
 
     def __init__(self, surface, position: tuple, speed: tuple) -> None:
-        super().__init__(surface, position, speed)
+        super().__init__(surface, position, speed, acceleration=(0,0))
         import decimal
 
         self.charge = decimal.Decimal('-1.60e-19') #C
@@ -36,7 +40,7 @@ class Electron(Particle):
 class Proton(Particle):
 
     def __init__(self, surface, position: tuple, speed: tuple) -> None:
-        super().__init__(surface, position, speed)
+        super().__init__(surface, position, speed, acceleration=(0,0))
         import decimal
 
         self.charge = decimal.Decimal('1.60e-19') #C

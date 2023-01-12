@@ -3,26 +3,19 @@ from .engine import Engine
 class SimpleInteraction(Engine):
 
 
-    def __init__(self, surface, parts: dict) -> None:
+    def __init__(self, surface, parts: list) -> None:
         """
         inits the particles as objects in a dictionary. it needs a dictionary containing the speed and the initial position associated with the kind of particle as an input 
         """
 
-        import particle
+        from functions import utils
 
         super().__init__(surface)
 
-        #make a dict mapping an index to a particle object
         self.particles = dict()
         n = 0
-        for item in parts.items():
-            particle_type = item[1][0]
-            speed = item[1][1]
-            position = item[1][2]
-            if particle_type:
-                self.particles[n] = particle.Electron(self.surface, position, speed)
-            else:
-                self.particles[n] = particle.Proton(self.surface, position, speed)
+        for particle in parts:
+            self.particles[n] = utils.addToPartMap(surface, particle)
             n += 1
     
     def scale_speed(self, scale_factor):
@@ -65,7 +58,8 @@ class SimpleInteraction(Engine):
                 else:
                     force1 = (-force[0], -force[1])
                     force2 = force
-                    
+                
+                #scale the acceleration
                 xAcc1 = (force1[0] / particle1.mass) / scaler
                 yAcc1 = (force1[1] / particle1.mass) / scaler
                 xAcc2 = (force2[0] / particle2.mass) / scaler
@@ -76,7 +70,11 @@ class SimpleInteraction(Engine):
 
                 key2 += 1 
 
-
+    def show(self):
+        for key, particle in self.particles.items():
+            print("particle n {}:".format(key))
+            print(particle)
+            print("*"*4)
 
     def run(self, scaler):
         for _, particle in self.particles.items():
